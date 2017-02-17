@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>旋转木马 幻灯片开发</title>
+	<link rel="stylesheet" href="css/carousel.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/carousel.js"></script>
+</head>
+<body style="padding:50px;">
+	<div class="J_Poster poster-main">
+		<div class="poster-btn poster-prev-btn"></div>
+		<ul class="poster-list">
+			<li class="poster-item"><a href="#"><img src="img/1.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/2.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/4.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/5.jpg" width="100%" alt=""></a></li>
+		</ul>
+		<div class="poster-btn poster-next-btn"></div>
+	</div>
+
+	<div class="J_Poster poster-main">
+		<div class="poster-btn poster-prev-btn"></div>
+		<ul class="poster-list">
+			<li class="poster-item"><a href="#"><img src="img/1.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/2.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/4.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/5.jpg" width="100%" alt=""></a></li>
+		</ul>
+		<div class="poster-btn poster-next-btn"></div>
+	</div>
+
+	<div class="J_Poster poster-main">
+		<div class="poster-btn poster-prev-btn"></div>
+		<ul class="poster-list">
+			<li class="poster-item"><a href="#"><img src="img/1.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/2.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/4.jpg" width="100%" alt=""></a></li>
+			<li class="poster-item"><a href="#"><img src="img/5.jpg" width="100%" alt=""></a></li>
+		</ul>
+		<div class="poster-btn poster-next-btn"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	// Carousel
+
+	// var carousel1 = new Carousel($('.J_Poster').eq(0));
+	// var carousel2 = new Carousel($('.J_Poster').eq(1));
+
+	Carousel.init($('.J_Poster'));
+</script>
+</html>
