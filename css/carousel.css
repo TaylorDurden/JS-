@@ -43,6 +43,7 @@ body{color:#666; background-color:#fff;font: 12px/1.5 '微软雅黑',tahoma,aria
 	z-index: 10; /*层级*/
 	background-color: red;
 	cursor: pointer;
+	opacity: 0.8
 }
 
 .poster-main .poster-prev-btn{
