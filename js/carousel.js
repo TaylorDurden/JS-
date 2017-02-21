@@ -14,41 +14,63 @@
 			"height": 270, // 幻灯片的高度
 			"posterWidth": 640, // 幻灯片第一帧的宽度
 			"posterHeight": 270, // 幻灯片第一帧的高度
-			"scale": 0.9, 
+			"scale": 0.8, 
 			"speed": 500,
 			"verticalAlignment": "middle"
 		};
 
 		$.extend(this.config, this.getConfig());
 		this.setConfigToElements();
+		this.setPosterPosition();
 	};
 
 	Carousel.prototype = {
 		/*设置剩余的帧的位置关系*/
 		setPosterPosition: function() {
+			var self = this;
 			var sliceItems = this.posterItems.slice(1),
 				sliceSize = sliceItems.size()/2,
 				rightSlice = sliceItems.slice(0, sliceSize),
-				indexLevel = Math.floor(this.posterItems.size()/2);
+				indexLevel = Math.floor(this.posterItems.size()/2),
+				leftSlice = sliceItems.slice(sliceSize);
 
 			// 设置右边帧的位置关系和宽度高度top
 			var rightWidth = this.config.posterWidth,
 				rightHeight = this.config.posterHeight,
 				gap = ((this.config.width - this.config.posterWidth) / 2) / indexLevel;
 
+			var firstLeft = (this.config.width - this.config.posterWidth) / 2;
+			var fixedOffsetLeft = firstLeft + rightWidth;
 
 			rightSlice.each(function(i) {
 				indexLevel--;
 				rightWidth = rightWidth * self.config.scale;
 				rightHeight = rightHeight * self.config.scale;
+				var j = i;
 				$(this).css({
-					zIndex: xx,
-					width: ww,
-					height: hh,
-					opcatiy: oo,
-					left: ll
+					zIndex: indexLevel,
+					width: rightWidth,
+					height: rightHeight,
+					opcatiy: 1/(++j),
+					left: fixedOffsetLeft + (++i) * gap - rightWidth,
+					top: (self.config.height - rightHeight) / 2
 				});
 			});
+
+			// var leftWidth = rightSlice.last().width(),
+			// 	leftHeight = rightSlice.last().height(),
+			// 	opcatiyLoop = Math.floor(this.posterItems.size()/2);
+			// leftSlice.each(function(i) {
+			// 	$(this).css({
+			// 		zIndex: indexLevel,
+			// 		width: leftWidth,
+			// 		height: leftHeight,
+			// 		opcatiy: 1/opcatiyLoop,
+			// 		left: i * gap,
+			// 		top: (self.config.height - rightHeight) / 2
+			// 	});
+			// 	opcatiyLoop--;
+			// });
 		},
 
 		//设置配置参数值来控制基本的宽高比例等
@@ -78,8 +100,8 @@
 
 			this.posterFirstItem.css({
 				left: computedWidthForSwitchButton,
-				width: this.config.width,
-				height: this.config.height,
+				width: this.config.posterWidth,
+				height: this.config.postHeight,
 				zIndex: Math.floor(this.posterItems.size() / 2) // 向下取整
 			});
 		},
