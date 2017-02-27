@@ -1,9 +1,10 @@
 ;(function($) { /* 加; 是为了避免引入的文件没有;闭合而导致产生错误。 */
 	var Carousel = function(poster) {
-
+		var self = this;
 		this.poster = poster;
 		this.posterContainer = poster.find("ul.poster-list");
-		this.posterFirstItem = this.posterContainer.find('li').eq(0);
+		this.posterFirstItem = this.posterContainer.find('li').first();
+		this.posterLastItem = this.posterContainer.find('li').last();
 		this.posterItems = poster.find('li.poster-item');
 
 		this.nextButton = poster.find("div.poster-next-btn");
@@ -23,9 +24,60 @@
 		$.extend(this.config, this.getConfig());
 		this.setConfigToElements();
 		this.setPosterPosition();
+		this.nextButton.click(function() {
+			self.switchPicture('left');
+		});
+
+		this.prevButton.click(function() {
+			self.switchPicture('right');
+		});
 	};
 
 	Carousel.prototype = {
+		switchPicture: function(direction) {
+			var _this_ = this;
+			if (direction === 'left') {
+				this.posterItems.each(function() {
+					var self = $(this),
+						prev = self.prev().get(0)?self.prev():_this_.posterLastItem,
+						width = prev.width(),
+						height = prev.height(),
+						zIndex = prev.css('zIndex'),
+						opacity = prev.css('opacity'),
+						left = prev.css('left'),
+						top = prev.css('top');
+
+						self.animate({
+							width: width,
+							height: height,
+							zIndex: zIndex,
+							opacity: opacity,
+							left: left,
+							top: top
+						});
+				});
+			} else {
+				this.posterItems.each(function() {
+					var self = $(this),
+						next = self.prev().get(0)?self.next():_this_.posterFirstItem,
+						width = next.width(),
+						height = next.height(),
+						zIndex = next.css('zIndex'),
+						opacity = next.css('opacity'),
+						left = next.css('left'),
+						top = next.css('top');
+
+						self.animate({
+							width: width,
+							height: height,
+							zIndex: zIndex,
+							opacity: opacity,
+							left: left,
+							top: top
+						});
+				});
+			}
+		},
 		/*设置剩余的帧的位置关系*/
 		setPosterPosition: function() {
 			var self = this;
