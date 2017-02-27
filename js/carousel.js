@@ -16,6 +16,7 @@
 			"posterHeight": 270, // 幻灯片第一帧的高度
 			"scale": 0.8, 
 			"speed": 500,
+			"opcatiy": 1,
 			"verticalAlignment": "middle"
 		};
 
@@ -51,28 +52,45 @@
 					zIndex: indexLevel,
 					width: rightWidth,
 					height: rightHeight,
-					opcatiy: 1/(++j),
+					opacity: 1/(++j),
 					left: fixedOffsetLeft + (++i) * gap - rightWidth,
-					top: (self.config.height - rightHeight) / 2
+					top: self.setVerticalAlignment(rightHeight)
 				});
 			});
 
-			// var leftWidth = rightSlice.last().width(),
-			// 	leftHeight = rightSlice.last().height(),
-			// 	opcatiyLoop = Math.floor(this.posterItems.size()/2);
-			// leftSlice.each(function(i) {
-			// 	$(this).css({
-			// 		zIndex: indexLevel,
-			// 		width: leftWidth,
-			// 		height: leftHeight,
-			// 		opcatiy: 1/opcatiyLoop,
-			// 		left: i * gap,
-			// 		top: (self.config.height - rightHeight) / 2
-			// 	});
-			// 	opcatiyLoop--;
-			// });
+			//设置左边的位置关系
+			var leftWidth = rightSlice.last().width(),
+				leftHeight = rightSlice.last().height(),
+				opcatiyLoop = Math.floor(this.posterItems.size()/2);
+			leftSlice.each(function(i) {
+				$(this).css({
+					zIndex: indexLevel,
+					width: leftWidth,
+					height: leftHeight,
+					opacity: 1/opcatiyLoop,
+					left: i * gap,
+					top: self.setVerticalAlignment(leftHeight)
+				});
+				leftWidth = leftWidth / self.config.scale;
+				leftHeight = leftHeight / self.config.scale;
+				opcatiyLoop--;
+			});
 		},
+		setVerticalAlignment: function(height) {
+			var verticalType = this.config.verticalAlignment,
+				top = 0;
 
+			if (verticalType === 'middle'){
+				top = (this.config.height - height) / 2;
+			} else if (verticalType === 'top'){
+				top = 0;
+			} else if (verticalType === 'bottom'){
+				top = this.config.height - height;
+			} else {
+				top = (this.config.height - height) / 2;
+			}
+			return top;
+		},
 		//设置配置参数值来控制基本的宽高比例等
 		setConfigToElements: function() {
 			this.poster.css({
@@ -102,14 +120,15 @@
 				left: computedWidthForSwitchButton,
 				width: this.config.posterWidth,
 				height: this.config.postHeight,
-				zIndex: Math.floor(this.posterItems.size() / 2) // 向下取整
+				zIndex: Math.floor(this.posterItems.size() / 2), // 向下取整
+				top:0,
 			});
 		},
 		// 获取人工配置参数
 		getConfig: function() {
 			var config = this.poster.data('config');
 			return config !==""&& config != null ? config : {};			
-		}
+		}	
 	};
 
 	Carousel.init = function(posters) {

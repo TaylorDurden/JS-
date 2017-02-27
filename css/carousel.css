@@ -48,10 +48,10 @@ body{color:#666; background-color:#fff;font: 12px/1.5 '微软雅黑',tahoma,aria
 
 .poster-main .poster-prev-btn{
 	left: 0;
-	background: red url("../img/btn_l.png") no-repeat center center;
+	background: url("../img/btn_l.png") no-repeat center center;
 }
 
 .poster-main .poster-next-btn{
 	right: 0;
-	background: red url("../img/btn_r.png") no-repeat center center;
+	background: url("../img/btn_r.png") no-repeat center center;
 }
