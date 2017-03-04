@@ -6,6 +6,7 @@
 		this.posterFirstItem = this.posterContainer.find('li').first();
 		this.posterLastItem = this.posterContainer.find('li').last();
 		this.posterItems = poster.find('li.poster-item');
+		this.switchFlag = true;
 
 		this.nextButton = poster.find("div.poster-next-btn");
 		this.prevButton = poster.find("div.poster-prev-btn");
@@ -15,27 +16,52 @@
 			"height": 270, // 幻灯片的高度
 			"posterWidth": 640, // 幻灯片第一帧的宽度
 			"posterHeight": 270, // 幻灯片第一帧的高度
-			"scale": 0.8, 
-			"speed": 500,
+			"scale": 0.8,
+			"speed": 1000,
 			"opcatiy": 1,
-			"verticalAlignment": "middle"
+			"verticalAlignment": "middle",
+			"autoPlay": true,
+			"delay": 2000
 		};
 
 		$.extend(this.config, this.getConfig());
 		this.setConfigToElements();
 		this.setPosterPosition();
 		this.nextButton.click(function() {
-			self.switchPicture('left');
+			if (self.switchFlag) {
+				self.switchFlag = false;
+				self.switchPicture('left');
+			}
 		});
 
 		this.prevButton.click(function() {
-			self.switchPicture('right');
+			if (self.switchFlag) {
+				self.switchFlag = false;
+				self.switchPicture('right');
+			}
 		});
+
+		if (this.config.autoPlay) {
+			this.autoPlay();
+			this.poster.hover(function() {
+				window.clearInterval(self.timer);
+			}, function() {
+				self.autoPlay();
+			});
+		}
 	};
 
 	Carousel.prototype = {
+		autoPlay: function() {
+			var self = this;
+			this.timer = window.setInterval(function() {
+				self.nextButton.click();
+			}, this.config.delay);
+		},
 		switchPicture: function(direction) {
 			var _this_ = this;
+			var zIndexArr = [];
+
 			if (direction === 'left') {
 				this.posterItems.each(function() {
 					var self = $(this),
@@ -46,35 +72,49 @@
 						opacity = prev.css('opacity'),
 						left = prev.css('left'),
 						top = prev.css('top');
+						zIndexArr.push(zIndex);
 
 						self.animate({
 							width: width,
 							height: height,
-							zIndex: zIndex,
+							//zIndex: zIndex,
 							opacity: opacity,
 							left: left,
 							top: top
+						}, _this_.config.speed, function() {
+							_this_.switchFlag = true;
 						});
+				});
+
+				this.posterItems.each(function(i) {
+					$(this).css('zIndex', zIndexArr[i]);
 				});
 			} else {
 				this.posterItems.each(function() {
 					var self = $(this),
-						next = self.prev().get(0)?self.next():_this_.posterFirstItem,
+						next = self.next().get(0)?self.next():_this_.posterFirstItem,
 						width = next.width(),
 						height = next.height(),
 						zIndex = next.css('zIndex'),
 						opacity = next.css('opacity'),
 						left = next.css('left'),
 						top = next.css('top');
+						zIndexArr.push(zIndex);
 
 						self.animate({
 							width: width,
 							height: height,
-							zIndex: zIndex,
+							// zIndex: zIndex,
 							opacity: opacity,
 							left: left,
 							top: top
+						}, _this_.config.speed, function() {
+							_this_.switchFlag = true;
 						});
+				});
+
+				this.posterItems.each(function(i) {
+					$(this).css('zIndex', zIndexArr[i]);
 				});
 			}
 		},
@@ -116,7 +156,7 @@
 				opcatiyLoop = Math.floor(this.posterItems.size()/2);
 			leftSlice.each(function(i) {
 				$(this).css({
-					zIndex: indexLevel,
+					zIndex: i,
 					width: leftWidth,
 					height: leftHeight,
 					opacity: 1/opcatiyLoop,
@@ -165,7 +205,7 @@
 			this.prevButton.css({
 				width: computedWidthForSwitchButton,
 				height: this.config.height,
-				zIndex: Math.ceil(this.posterItems.size() / 2) 
+				zIndex: Math.ceil(this.posterItems.size() / 2)
 			});
 
 			this.posterFirstItem.css({
@@ -179,8 +219,8 @@
 		// 获取人工配置参数
 		getConfig: function() {
 			var config = this.poster.data('config');
-			return config !==""&& config != null ? config : {};			
-		}	
+			return config !==""&& config != null ? config : {};
+		}
 	};
 
 	Carousel.init = function(posters) {
