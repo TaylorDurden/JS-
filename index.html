@@ -6,9 +6,73 @@
 	<link rel="stylesheet" href="css/carousel.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/carousel.js"></script>
+	<script type="text/javascript" src="js/DescCarousel.js"></script>
+
+	<style type="text/css">
+		body{
+			margin: 0 auto;
+		}
+
+		.description {
+			margin: 0 10%;
+		}
+
+		.picture {
+			background-image: url(img/watermark_navagiobeach_zh-cn8854639142_1920x1080.jpg);
+			/*width: 1136px;*/
+			height: 768px;
+			position: relative;
+		}
+
+		.desc {
+			opacity: 0.5;
+			background-color: #000000;
+			border-radius: 14px;
+			width:350px;
+			height: 120px;
+			margin: 10px;
+			padding: 10px;
+			position: relative;
+		}
+
+		.clear{
+			clear: both;
+		}
+
+		.block-1 {
+			top: 100px;
+			left: 100px;
+			float: left;
+			position: absolute;
+		}
+
+		.block-2 {
+			top: 50px;
+			left: 950px;
+			float: right;
+			position: absolute;
+		}
+
+		.block-3 {
+			top: 400px;
+			left: 50px;
+			float: left;
+			position: absolute;
+		}
+
+		.block-4 {
+			top: 460px;
+			left: 1000px;
+			float: right;
+			position: absolute;
+		}
+		.clear {
+			clear: both;
+		}
+	</style>
 </head>
 <body style="padding:50px;">
-	<div class="J_Poster poster-main" data-config='{"width":1000, "height": 270, "posterWidth": 540, "posterHeight": 270, "scale": 0.8, "speed": 500, "opacity": "1", "verticalAlignment": "middle", "autoPlay": "true", "delay": "2000" }'>
+	<div class="J_Poster poster-main" data-config='{"width":1000, "height": 270, "posterWidth": 540, "posterHeight": 270, "scale": 0.8, "speed": 500, "opacity": "1", "verticalAlignment": "top", "autoPlay": "false", "delay": "2000" }'>
 		<div class="poster-btn poster-prev-btn"></div>
 		<ul class="poster-list">
 			<li class="poster-item"><a href="#"><img src="img/1.jpg" width="inherit" height="inherit" alt=""></a></li>
@@ -21,41 +85,18 @@
 		</ul>
 		<div class="poster-btn poster-next-btn"></div>
 	</div>
-
-	<div class="J_Poster poster-main" data-config='{"width":1000, "height": 270, "posterWidth": 540, "posterHeight": 270, "scale": 0.9, "speed": 500, "abc": "000", "verticalAlignment": "top" }'>
-		<div class="poster-btn poster-prev-btn"></div>
-		<ul class="poster-list">
-			<li class="poster-item"><a href="#"><img src="img/IMG_1593.jpg" maxwidth="100%" maxheight="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1594.jpg" maxwidth="100%" maxheight="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1595.jpg" maxwidth="100%" maxheight="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1596.jpg" maxwidth="100%" maxheight="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1597.jpg" maxwidth="100%" maxheight="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1598.jpg" maxwidth="100%" maxheight="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1599.jpg" maxwidth="100%" maxheight="100%" alt=""></a></li>
-		</ul>
-		<div class="poster-btn poster-next-btn"></div>
-	</div>
-
-	<div class="J_Poster poster-main" data-config='{"width":1000, "height": 270, "posterWidth": 540, "posterHeight": 270, "scale": 0.9, "speed": 500, "abc": "000", "verticalAlignment": "bottom" }'>
-		<div class="poster-btn poster-prev-btn"></div>
-		<ul class="poster-list">
-			<li class="poster-item"><a href="#"><img src="img/IMG_1593.jpg" width="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1594.jpg" width="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1595.jpg" width="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1596.jpg" width="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1597.jpg" width="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1598.jpg" width="100%" alt=""></a></li>
-			<li class="poster-item"><a href="#"><img src="img/IMG_1599.jpg" width="100%" alt=""></a></li>
-		</ul>
-		<div class="poster-btn poster-next-btn"></div>
+	<div style="margin-top: 100px;"></div>
+	<div class="description">
+		<div class="picture">
+			<div class="desc block-1"><span>111111111111</span></div>
+			<div class="desc block-2"><span>222222222222</span></div>
+			<div class="desc block-4"><span>444444444444</span></div>
+			<div class="desc block-3"><span>333333333333</span></div>
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	// Carousel
-
-	// var carousel1 = new Carousel($('.J_Poster').eq(0));
-	// var carousel2 = new Carousel($('.J_Poster').eq(1));
-
 	Carousel.init($('.J_Poster'));
+	DescCarousel.init($('.description'));
 </script>
 </html>
